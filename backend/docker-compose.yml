@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: risk_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - backend_network
+
+  backend:
+    build: .
+    container_name: flask_backend
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DB: risk_db
+    ports:
+      - "5000:5000"
+    networks:
+      - backend_network
+    volumes:
+      - .:/app
+
+networks:
+  backend_network:
+
+volumes:
+  mysql_data:
