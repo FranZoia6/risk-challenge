@@ -11,12 +11,14 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - backend_network
 
   backend:
-    build: .
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: flask_backend
     restart: always
     depends_on:
@@ -31,7 +33,16 @@ services:
     networks:
       - backend_network
     volumes:
-      - .:/app
+      - ./backend:/app
+
+  nginx:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    networks:
+      - backend_network
 
 networks:
   backend_network:

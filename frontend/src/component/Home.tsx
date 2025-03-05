@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { fetchPost } from "../utils/request";
 import Risk from "./Risk";
+import { toast } from "react-toastify";
 
 interface RiskItem {
   id: string;
@@ -10,11 +11,13 @@ interface RiskItem {
 }
 
 type Props = {
-  setToken: (token: string) => void;
   token: string;
+  user: {};
+  setToken: (token: string) => void;
+  setAuthenticated: (auth: boolean) => void;
 };
 
-function Home({ setToken, token }: Props) {
+function Home({ setToken, token, user, setAuthenticated }: Props) {
   const [text, setText] = useState("");
   const [page, setPage] = useState(1);
   const [riskList, setRiskList] = useState<RiskItem[]>([]);
@@ -23,10 +26,20 @@ function Home({ setToken, token }: Props) {
 
   const handleSendRisk = async (text: string) => {
     const request = { text };
-    console.log(token);
-    const response = await fetchPost(url, request, token);
-    setRiskList(response.data.risks || []);
-    setPage(1);
+    try {
+      const response = await fetchPost(url, request, token);
+      const urlToken = "http://127.0.0.1:5000/auth/login";
+      setAuthenticated(response.status);
+
+      if (response.status) {
+        const responseToken = await fetchPost(urlToken, user);
+        setToken(responseToken.data.token);
+        setRiskList(response.data.risks || []);
+        setPage(1);
+      }
+    } catch (error) {
+      toast.error("Error");
+    }
   };
 
   const totalPage = Math.ceil(riskList.length / itemsPerPage);

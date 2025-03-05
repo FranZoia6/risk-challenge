@@ -1,5 +1,3 @@
-import React from "react";
-
 interface RiskItem {
   id: string;
   impact: string;

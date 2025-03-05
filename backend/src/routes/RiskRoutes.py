@@ -43,5 +43,5 @@ def post_risks():
             Logger.add_to_log("error", traceback.format_exc())
             return jsonify({'message': "ERROR", 'success': False}), 500
     else:
-        response = jsonify({'message': 'Unauthorized'})
+        response = jsonify({'message': 'Unauthorized', })
         return response, 401

@@ -7,7 +7,7 @@ import pytz
 class Security():
 
     secret = os.getenv('JWT_KEY')
-    tz = pytz.timezone("America/Lima")
+    tz = pytz.timezone("America/Buenos_Aires")
 
     @classmethod
     def generate_token(cls, authenticated_user):
