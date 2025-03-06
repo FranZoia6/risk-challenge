@@ -20,7 +20,6 @@ function App() {
         <Login
           setAuthenticated={setAuthenticated}
           setToken={setToken}
-          user={user}
           setUser={setUser}
         />
       )}

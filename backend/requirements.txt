@@ -21,3 +21,5 @@ zipp
 pymysql
 cryptography
 flask-cors
+pytest 
+pytest-mock

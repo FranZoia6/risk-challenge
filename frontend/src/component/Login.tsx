@@ -3,17 +3,16 @@ import { fetchPost } from "../utils/request";
 import { toast } from "react-toastify";
 
 type Props = {
-  user: {};
   setAuthenticated: (auth: boolean) => void;
   setToken: (token: string) => void;
   setUser: ({}) => void;
 };
 
-function Login({ setAuthenticated, setToken, setUser, user }: Props) {
+function Login({ setAuthenticated, setToken, setUser }: Props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullname, setFullname] = useState("");
-  const [isSignUp, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const signUp = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -23,6 +22,8 @@ function Login({ setAuthenticated, setToken, setUser, user }: Props) {
     try {
       const response = await fetchPost(url, request);
       if (response.data.success) {
+        setPassword("");
+        setIsSignUp(false);
         toast.success("Registrado");
       } else {
         toast.error("Error en el registro:");
@@ -34,13 +35,15 @@ function Login({ setAuthenticated, setToken, setUser, user }: Props) {
 
   const signIn = async (event: React.FormEvent) => {
     event.preventDefault();
-    setUser({ username, password });
+    const request = { username, password };
     const url = "http://127.0.0.1:5000/auth/login";
 
     try {
-      const response = await fetchPost(url, user);
+      const response = await fetchPost(url, request);
+
       if (response.data.success) {
-        setAuthenticated(response.status);
+        setUser({ username, password });
+        setAuthenticated(true);
         setToken(response.data.token);
       } else {
         toast.error("Error en el inicio de sesión:");

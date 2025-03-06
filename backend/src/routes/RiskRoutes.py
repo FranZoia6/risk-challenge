@@ -30,8 +30,14 @@ def post_risks():
     if has_access:
         try:
             text = request.json.get('text', '')
-            if not text:
-                return jsonify({'message': "Missing 'text' field", 'success': False}), 400
+            
+            if not text.strip():
+                risk = RiskService.get_risk()
+                if risk: 
+                    return jsonify({'risks': risk, 'message': "SUCCESS", 'success': True})
+                else:
+                    return jsonify({'message': "No risks found", 'success': True})
+
 
             risk = RiskService.post_risk(text)
             if risk: 
@@ -45,3 +51,27 @@ def post_risks():
     else:
         response = jsonify({'message': 'Unauthorized', })
         return response, 401
+
+
+@main.route('/', methods=['PUT'])
+def update_risk():
+    has_access = Security.verify_token(request.headers)
+    if has_access:
+        try:
+            risk_data = request.json  
+
+            if not all(key in risk_data for key in ["id", "title", "description", "impact", "resolved"]):
+                return jsonify({'message': "Invalid request data", 'success': False}), 400
+
+            success, message = RiskService.update_risk(risk_data)
+
+            if success:
+                return jsonify({'message': message, 'success': True})
+            else:
+                return jsonify({'message': message, 'success': False}), 500
+        except Exception as ex:
+            Logger.add_to_log("error", str(ex))
+            Logger.add_to_log("error", traceback.format_exc())
+            return jsonify({'message': "ERROR", 'success': False}), 500
+    else:
+        return jsonify({'message': 'Unauthorized'}), 401

@@ -1,8 +1,5 @@
-# Database
 from src.database.db_mysql import get_connection
-# Errors
 from src.utils.errors.CustomException import CustomException
-# Models
 from src.models.UserModel import User
 
 

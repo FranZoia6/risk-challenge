@@ -1,13 +1,20 @@
-import { useState } from "react";
-import { fetchPost } from "../utils/request";
-import Risk from "./Risk";
+import { useState, useEffect } from "react";
+import RiskMetrics from "./RiskMetrics";
+import { fetchPost, useFetchGet } from "../utils/request";
 import { toast } from "react-toastify";
+import RiskTable from "./RiskTable";
 
 interface RiskItem {
   id: string;
+  cod: string;
   impact: string;
   title: string;
   description: string;
+  resolved: boolean;
+}
+
+interface RiskResponse {
+  risks: RiskItem[];
 }
 
 type Props = {
@@ -19,10 +26,23 @@ type Props = {
 
 function Home({ setToken, token, user, setAuthenticated }: Props) {
   const [text, setText] = useState("");
-  const [page, setPage] = useState(1);
   const [riskList, setRiskList] = useState<RiskItem[]>([]);
-  const itemsPerPage = 10;
   const url = "http://localhost:5000/risk/";
+ const { data } = useFetchGet<RiskResponse>(url, token);
+  console.log(data);
+
+  const [isFirstFetch, setIsFirstFetch] = useState(true);
+
+  useEffect(() => {
+    if (isFirstFetch && data?.risks) {
+      const formattedRisks = data.risks.map((risk: any) => ({
+        ...risk,
+        resolved: risk.resolved === 1,
+      }));
+      setRiskList(formattedRisks);
+      setIsFirstFetch(false);
+    }
+  }, [data, isFirstFetch]);
 
   const handleSendRisk = async (text: string) => {
     const request = { text };
@@ -35,18 +55,11 @@ function Home({ setToken, token, user, setAuthenticated }: Props) {
         const responseToken = await fetchPost(urlToken, user);
         setToken(responseToken.data.token);
         setRiskList(response.data.risks || []);
-        setPage(1);
       }
     } catch (error) {
       toast.error("Error");
     }
   };
-
-  const totalPage = Math.ceil(riskList.length / itemsPerPage);
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const paginatedRisks = riskList.slice(startIndex, endIndex);
 
   return (
     <>
@@ -65,43 +78,13 @@ function Home({ setToken, token, user, setAuthenticated }: Props) {
           placeholder="Escribe tu mensaje y presiona Enter"
         />
       </div>
-
-      <div>
-        {paginatedRisks.length > 0 &&
-          paginatedRisks.map((riskItem) => (
-            <Risk key={riskItem.id} risk={riskItem} />
-          ))}
-      </div>
-      {totalPage > 1 && (
-        <div style={{ margin: "5px", textAlign: "center" }}>
-          <button
-            disabled={page === 1}
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          >
-            ⬅️
-          </button>
-
-          {Array.from({ length: totalPage }, (_, index) => (
-            <button
-              key={index}
-              onClick={() => setPage(index + 1)}
-              disabled={page === index + 1}
-              style={{
-                fontWeight: page === index + 1 ? "bold" : "normal",
-                margin: "5px",
-              }}
-            >
-              {index + 1}
-            </button>
-          ))}
-
-          <button
-            disabled={page === totalPage}
-            onClick={() => setPage((prev) => Math.min(prev + 1, totalPage))}
-          >
-            ➡️
-          </button>
+      {riskList.length > 0 ? (
+        <div>
+          <RiskMetrics riskList={riskList} />
+          <RiskTable riskList={riskList} token= {token}/>
         </div>
+      ) : (
+        <p>Sin resultados</p>
       )}
     </>
   );

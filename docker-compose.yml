@@ -19,7 +19,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: flask_backend
+    container_name: risk_backend
     restart: always
     depends_on:
       - mysql
@@ -39,6 +39,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    container_name: risk_frontend
     ports:
       - "5173:80"
     networks:
