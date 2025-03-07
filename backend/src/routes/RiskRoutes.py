@@ -85,7 +85,6 @@ def add_risks():
     if has_access:
         try:
             risk_data = request.json.get('risk', '')
-            Logger.add_to_log("info", f"Received data: {request.json.get('risk', '')}")
 
             if not risk_data:
                 return jsonify({'message': 'Missing risk data', 'success': False}), 400
