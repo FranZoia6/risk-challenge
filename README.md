@@ -97,3 +97,7 @@ Para ejecutar las pruebas unitarias, es necesario crear un entorno virtual.
 ## Logger 
 
 El sistema cuenta con un logger incorporado para el registro de eventos y errores. Como referencia, se ha dejado un archivo de muestra en backend/src/utils/log/app.log, donde se registran los logs generados durante las pruebas.
+
+## Comentario 
+
+El filtro para determinar si un riesgo está resuelto se basa en las palabras "resuelto" o "no resuelto".
