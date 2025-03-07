@@ -10,9 +10,19 @@ interface RiskItem {
   resolved: boolean;
 }
 
-type Props = { riskItem: RiskItem; onClose: () => void; token: string };
+type Props = {
+  riskItem: RiskItem;
+  onClose: () => void;
+  token: string;
+  setRiskList: React.Dispatch<React.SetStateAction<RiskItem[]>>;
+};
 
-function RiskUpdate({ riskItem, onClose, token }: Props) {
+function RiskUpdate({
+  riskItem,
+  onClose,
+  token,
+  setRiskList,
+}: Props) {
   const url = "http://localhost:5000/risk/";
 
   const [title, setTitle] = useState(riskItem.title);
@@ -20,6 +30,7 @@ function RiskUpdate({ riskItem, onClose, token }: Props) {
   const [impact, setImpact] = useState(riskItem.impact);
   const [resolved, setResolved] = useState(riskItem.resolved);
 
+   // Realizar la solicitud PUT para actualizar el riesgo
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const updatedRisk = {
@@ -30,8 +41,17 @@ function RiskUpdate({ riskItem, onClose, token }: Props) {
       impact,
       resolved,
     };
-    await fetchPut(url, updatedRisk, token);
-    onClose(); 
+
+    const data = await fetchPut(url, updatedRisk, token);
+
+    if (data.status) {
+      setRiskList((prevRiskList: RiskItem[]) =>
+        prevRiskList.map((item) =>
+          item.id === updatedRisk.id ? { ...item, ...updatedRisk } : item
+        )
+      );
+    }
+    onClose();
   };
 
   return (

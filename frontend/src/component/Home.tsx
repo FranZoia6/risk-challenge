@@ -3,6 +3,7 @@ import RiskMetrics from "./RiskMetrics";
 import { fetchPost, useFetchGet } from "../utils/request";
 import { toast } from "react-toastify";
 import RiskTable from "./RiskTable";
+import RiskAdd from "./RiskAdd";
 
 interface RiskItem {
   id: string;
@@ -28,8 +29,7 @@ function Home({ setToken, token, user, setAuthenticated }: Props) {
   const [text, setText] = useState("");
   const [riskList, setRiskList] = useState<RiskItem[]>([]);
   const url = "http://localhost:5000/risk/";
- const { data } = useFetchGet<RiskResponse>(url, token);
-  console.log(data);
+  const { data } = useFetchGet<RiskResponse>(url, token);
 
   const [isFirstFetch, setIsFirstFetch] = useState(true);
 
@@ -44,11 +44,13 @@ function Home({ setToken, token, user, setAuthenticated }: Props) {
     }
   }, [data, isFirstFetch]);
 
+
+  // Maneja el envío de un nuevo riesgo a través de una solicitud POST
   const handleSendRisk = async (text: string) => {
     const request = { text };
     try {
       const response = await fetchPost(url, request, token);
-      const urlToken = "http://127.0.0.1:5000/auth/login";
+      const urlToken = "http://localhost:5000/auth/login";
       setAuthenticated(response.status);
 
       if (response.status) {
@@ -80,8 +82,13 @@ function Home({ setToken, token, user, setAuthenticated }: Props) {
       </div>
       {riskList.length > 0 ? (
         <div>
+          <RiskAdd token={token} setRiskList={setRiskList} />
           <RiskMetrics riskList={riskList} />
-          <RiskTable riskList={riskList} token= {token}/>
+          <RiskTable
+            riskList={riskList}
+            token={token}
+            setRiskList={setRiskList}
+          />
         </div>
       ) : (
         <p>Sin resultados</p>

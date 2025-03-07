@@ -19,9 +19,10 @@ const impactColors: { [key: string]: string } = {
 type Props = {
   riskList: RiskItem[];
   token: string;
+  setRiskList: React.Dispatch<React.SetStateAction<RiskItem[]>>;
 };
 
-const RiskTable = ({ riskList, token }: Props) => {
+const RiskTable = ({ riskList, token, setRiskList }: Props) => {
   const [page, setPage] = useState(1);
   const [selectedRisk, setSelectedRisk] = useState<RiskItem | null>(null);
   const itemsPerPage = 10;
@@ -30,7 +31,6 @@ const RiskTable = ({ riskList, token }: Props) => {
   const startIndex = (page - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedRisks = riskList.slice(startIndex, endIndex);
-  console.log(riskList);
   return (
     <>
       <table className="table table-bordered table-hover">
@@ -120,6 +120,7 @@ const RiskTable = ({ riskList, token }: Props) => {
                 riskItem={selectedRisk}
                 onClose={() => setSelectedRisk(null)}
                 token={token}
+                setRiskList={setRiskList}
               />
             </div>
           </div>

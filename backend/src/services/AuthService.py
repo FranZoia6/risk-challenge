@@ -4,7 +4,7 @@ from src.models.UserModel import User
 
 
 class AuthService():
-
+      # Método para verificar las credenciales de un usuario durante el login.
     @classmethod
     def login_user(cls, user):
         try:
@@ -20,17 +20,25 @@ class AuthService():
         except CustomException as ex:
             raise CustomException(ex)
     
+    # Método para agregar un nuevo usuario a la base de datos.
     @classmethod
     def add_user(cls, user):
         try:
+            if not user.username or not user.password or not user.fullname:
+                raise CustomException("All fields (username, password, fullname) are required.")
+
+
             connection = get_connection()
             with connection.cursor() as cursor:
                 cursor.execute('call sp_addUser(%s, %s, %s)', (user.username, user.password, user.fullname))
                 connection.commit()
             connection.close()
             return 'User added successfully'
+        
         except CustomException as ex:
             raise CustomException(ex)
+        except Exception as ex:
+            raise CustomException(f"An error occurred: {str(ex)}")
 
 
 

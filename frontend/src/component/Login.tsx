@@ -14,10 +14,11 @@ function Login({ setAuthenticated, setToken, setUser }: Props) {
   const [fullname, setFullname] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
 
+  // Función que maneja el registro de un nuevo usuario
   const signUp = async (event: React.FormEvent) => {
     event.preventDefault();
     const request = { username, password, fullname };
-    const url = "http://127.0.0.1:5000/auth/signup";
+    const url = "http://localhost:5000/auth/signup";
 
     try {
       const response = await fetchPost(url, request);
@@ -33,10 +34,11 @@ function Login({ setAuthenticated, setToken, setUser }: Props) {
     }
   };
 
+  // Función que maneja el inicio de sesión de un usuario
   const signIn = async (event: React.FormEvent) => {
     event.preventDefault();
     const request = { username, password };
-    const url = "http://127.0.0.1:5000/auth/login";
+    const url = "http://localhost:5000/auth/login";
 
     try {
       const response = await fetchPost(url, request);

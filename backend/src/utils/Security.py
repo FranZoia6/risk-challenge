@@ -8,7 +8,9 @@ class Security():
 
     secret = os.getenv('JWT_KEY')
     tz = pytz.timezone("America/Buenos_Aires")
-
+    
+    
+    # Genera un token JWT con los detalles del usuario autenticado.
     @classmethod
     def generate_token(cls, authenticated_user):
         payload = {
@@ -20,6 +22,7 @@ class Security():
         }
         return jwt.encode(payload, cls.secret, algorithm="HS256")
 
+    # Verifica la validez de un token JWT recibido en los encabezados de la solicitud.
     @classmethod
     def verify_token(cls, headers):
         if 'Authorization' in headers.keys():

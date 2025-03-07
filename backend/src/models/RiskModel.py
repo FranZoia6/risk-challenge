@@ -1,4 +1,5 @@
 class Risk():
+     # Constructor que inicializa los atributos del riesgo.
     def __init__(self, id, cod, impact, title, description, resolved):
         self.id = id
         self.cod = cod  
@@ -7,6 +8,7 @@ class Risk():
         self.description = description
         self.resolved = resolved
 
+    # Método que convierte los datos del riesgo a un formato JSON.
     def to_json(self):
         return {
             'id': self.id,

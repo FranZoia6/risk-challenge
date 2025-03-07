@@ -4,7 +4,7 @@ USE risk_db;
 
 CREATE TABLE `risks` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
-    `cod` VARCHAR(255),
+    `cod` VARCHAR(255) UNIQUE,
     `impact` VARCHAR(255),
     `title` VARCHAR(255),
     `description` TEXT,
@@ -15,7 +15,7 @@ CREATE TABLE `risks` (
 
 CREATE TABLE `user` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL UNIQUE,
   `password` blob NOT NULL,
   `fullname` varchar(50) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Stores the user''s data.';
@@ -42,6 +42,22 @@ CREATE PROCEDURE `sp_getRisk` ()
 BEGIN
     SELECT * FROM risks;
 END$$
+
+CREATE PROCEDURE `sp_addRisks` (
+    IN `p_cod` VARCHAR(20),
+    IN `p_impact` VARCHAR(20),
+    IN `p_title` VARCHAR(50),
+    IN `p_description` TEXT,
+    IN `p_resolved` TINYINT(1)
+)
+BEGIN
+    INSERT INTO risks (cod, impact, title, description, resolved)
+    VALUES (p_cod, p_impact, p_title, p_description, p_resolved);
+
+ 
+    SELECT LAST_INSERT_ID() AS new_id;
+END $$
+
 
 CREATE PROCEDURE `sp_searchRisks` (IN `pText` TEXT)
 BEGIN
