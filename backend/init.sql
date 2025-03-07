@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS risk_db;
 USE risk_db;
 
 
----Crear tablas 
+-- Crear tablas 
 
 CREATE TABLE `risks` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
