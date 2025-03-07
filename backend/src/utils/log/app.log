@@ -102,3 +102,99 @@ RuntimeError: 'cryptography' package is required for sha256_password or caching_
 AttributeError: 'NoneType' object has no attribute 'cursor'
 
 2025-03-07 15:17:03 | INFO | Received data: {'title': 'sadasd', 'description': 'adasds', 'cod': 'asdas', 'impact': 'High', 'resolved': False}
+2025-03-07 19:08:04 | ERROR | Expected a string value
+2025-03-07 19:08:04 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 24, in login
+    encoded_token = Security.generate_token(authenticated_user)
+  File "/app/src/utils/Security.py", line 23, in generate_token
+    return jwt.encode(payload, cls.secret, algorithm="HS256")
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 78, in encode
+    return api_jws.encode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jws.py", line 170, in encode
+    key = alg_obj.prepare_key(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/algorithms.py", line 256, in prepare_key
+    key_bytes = force_bytes(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/utils.py", line 22, in force_bytes
+    raise TypeError("Expected a string value")
+TypeError: Expected a string value
+
+2025-03-07 19:08:09 | ERROR | Expected a string value
+2025-03-07 19:08:09 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 24, in login
+    encoded_token = Security.generate_token(authenticated_user)
+  File "/app/src/utils/Security.py", line 23, in generate_token
+    return jwt.encode(payload, cls.secret, algorithm="HS256")
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 78, in encode
+    return api_jws.encode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jws.py", line 170, in encode
+    key = alg_obj.prepare_key(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/algorithms.py", line 256, in prepare_key
+    key_bytes = force_bytes(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/utils.py", line 22, in force_bytes
+    raise TypeError("Expected a string value")
+TypeError: Expected a string value
+
+2025-03-07 19:08:20 | ERROR | Expected a string value
+2025-03-07 19:08:20 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 24, in login
+    encoded_token = Security.generate_token(authenticated_user)
+  File "/app/src/utils/Security.py", line 23, in generate_token
+    return jwt.encode(payload, cls.secret, algorithm="HS256")
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 78, in encode
+    return api_jws.encode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jws.py", line 170, in encode
+    key = alg_obj.prepare_key(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/algorithms.py", line 256, in prepare_key
+    key_bytes = force_bytes(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/utils.py", line 22, in force_bytes
+    raise TypeError("Expected a string value")
+TypeError: Expected a string value
+
+2025-03-07 19:08:42 | ERROR | Expected a string value
+2025-03-07 19:08:42 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 24, in login
+    encoded_token = Security.generate_token(authenticated_user)
+  File "/app/src/utils/Security.py", line 23, in generate_token
+    return jwt.encode(payload, cls.secret, algorithm="HS256")
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 78, in encode
+    return api_jws.encode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jws.py", line 170, in encode
+    key = alg_obj.prepare_key(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/algorithms.py", line 256, in prepare_key
+    key_bytes = force_bytes(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/utils.py", line 22, in force_bytes
+    raise TypeError("Expected a string value")
+TypeError: Expected a string value
+
+2025-03-07 19:08:49 | ERROR | Expected a string value
+2025-03-07 19:08:49 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 24, in login
+    encoded_token = Security.generate_token(authenticated_user)
+  File "/app/src/utils/Security.py", line 23, in generate_token
+    return jwt.encode(payload, cls.secret, algorithm="HS256")
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 78, in encode
+    return api_jws.encode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jws.py", line 170, in encode
+    key = alg_obj.prepare_key(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/algorithms.py", line 256, in prepare_key
+    key_bytes = force_bytes(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/utils.py", line 22, in force_bytes
+    raise TypeError("Expected a string value")
+TypeError: Expected a string value
+
+2025-03-07 19:12:18 | ERROR | Expected a string value
+2025-03-07 19:12:18 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 24, in login
+    encoded_token = Security.generate_token(authenticated_user)
+  File "/app/src/utils/Security.py", line 23, in generate_token
+    return jwt.encode(payload, cls.secret, algorithm="HS256")
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jwt.py", line 78, in encode
+    return api_jws.encode(
+  File "/usr/local/lib/python3.10/site-packages/jwt/api_jws.py", line 170, in encode
+    key = alg_obj.prepare_key(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/algorithms.py", line 256, in prepare_key
+    key_bytes = force_bytes(key)
+  File "/usr/local/lib/python3.10/site-packages/jwt/utils.py", line 22, in force_bytes
+    raise TypeError("Expected a string value")
+TypeError: Expected a string value
+

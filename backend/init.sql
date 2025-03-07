@@ -5,7 +5,7 @@ USE risk_db;
 
 -- Crear tablas 
 
-CREATE TABLE `risks` (
+CREATE TABLE IF NOT EXISTS `risks` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `cod` VARCHAR(255) UNIQUE,
     `impact` VARCHAR(255),
@@ -16,7 +16,7 @@ CREATE TABLE `risks` (
 );
 
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `username` varchar(20) COLLATE utf8_unicode_ci NOT NULL UNIQUE,
   `password` blob NOT NULL,

@@ -2,9 +2,11 @@ import os
 import datetime
 import jwt
 import pytz
+from dotenv import load_dotenv
 
 
 class Security():
+    load_dotenv()
 
     secret = os.getenv('JWT_KEY')
     tz = pytz.timezone("America/Buenos_Aires")
@@ -15,7 +17,7 @@ class Security():
     def generate_token(cls, authenticated_user):
         payload = {
             'iat': datetime.datetime.now(tz=cls.tz),
-            'exp': datetime.datetime.now(tz=cls.tz) + datetime.timedelta(minutes=10),
+            'exp': datetime.datetime.now(tz=cls.tz) + datetime.timedelta(minutes=100),
             'username': authenticated_user.username,
             'fullname': authenticated_user.fullname,
             'roles': ['Administrator', 'Editor']
