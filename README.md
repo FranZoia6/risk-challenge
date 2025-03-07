@@ -82,11 +82,18 @@ Para ejecutar las pruebas unitarias, es necesario crear un entorno virtual.
 
     ```bash
     pip install -r requirements.txt
-
     ```
+5. **Realizar las pruebas unitarias:**
 
-5.  **Desactivar el entorno:**
+    ```bash
+    python3 -m unittest 
+    ```
+6.  **Desactivar el entorno:**
 
     ```bash
     deactivate
     ```
+
+## Logger 
+
+El sistema cuenta con un logger incorporado para el registro de eventos y errores. Como referencia, se ha dejado un archivo de muestra en backend/src/utils/log/app.log, donde se registran los logs generados durante las pruebas.
