@@ -45,7 +45,7 @@ class TestAuthService(unittest.TestCase):
         result = AuthService.add_user(user)
         
         # Verificamos que el mensaje devuelto es el esperado
-        self.assertEqual(result, 'User added successfully')
+        self.assertEqual(result,(True, 'User added successfully'))
 
         # Verificamos que se haya llamado al método `execute` del cursor
         mock_cursor.execute.assert_called_once_with('call sp_addUser(%s, %s, %s)', 
