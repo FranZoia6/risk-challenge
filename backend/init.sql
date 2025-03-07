@@ -2,6 +2,9 @@ CREATE DATABASE IF NOT EXISTS risk_db;
 
 USE risk_db;
 
+
+---Crear tablas 
+
 CREATE TABLE `risks` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `cod` VARCHAR(255) UNIQUE,
@@ -22,14 +25,16 @@ CREATE TABLE `user` (
 
 
 DELIMITER $$
---
+
 -- Procedimientos
---
+
+-- Agrega un nuevo usuario con su nombre de usuario, contraseña cifrada y nombre completo.
 CREATE PROCEDURE `sp_addUser` (IN `pUsername` VARCHAR(20), IN `pPassword` VARCHAR(20), IN `pFullname` VARCHAR(50))  BEGIN
     INSERT INTO user (username, password, fullname)
     VALUES (pUsername, AES_ENCRYPT(pPassword, SHA2('B!1w8*NAt1T^%kvhUI*S^_', 512)), pFullname);
 END$$
 
+-- Verifica la identidad de un usuario comparando su nombre de usuario y contraseña cifrada.
 CREATE PROCEDURE `sp_verifyIdentity` (IN `pUsername` VARCHAR(20), IN `pPassword` VARCHAR(20))  BEGIN
 	SELECT USER.id, USER.username, USER.fullname 
 	FROM user USER 
@@ -38,11 +43,15 @@ CREATE PROCEDURE `sp_verifyIdentity` (IN `pUsername` VARCHAR(20), IN `pPassword`
 	AND CAST(AES_DECRYPT(USER.password, SHA2('B!1w8*NAt1T^%kvhUI*S^_', 512)) AS CHAR(30)) = pPassword;
 END$$
 
+
+-- Obtiene todos los registros de la tabla de riesgos.
 CREATE PROCEDURE `sp_getRisk` ()  
 BEGIN
     SELECT * FROM risks;
 END$$
 
+
+-- Agrega un nuevo riesgo con su código, impacto, título, descripción y estado de resolución.
 CREATE PROCEDURE `sp_addRisks` (
     IN `p_cod` VARCHAR(20),
     IN `p_impact` VARCHAR(20),
@@ -58,7 +67,7 @@ BEGIN
     SELECT LAST_INSERT_ID() AS new_id;
 END $$
 
-
+-- Busca riesgos en la base de datos filtrando por palabras clave y estado de resolución.
 CREATE PROCEDURE `sp_searchRisks` (IN `pText` TEXT)
 BEGIN
     DECLARE resolved_filter INT DEFAULT -1; 
@@ -88,7 +97,7 @@ BEGIN
 
 END$$
 
-
+-- Actualiza la información de un riesgo existente si el ID proporcionado es válido.
 CREATE PROCEDURE `sp_updateRisks`(
     IN p_id INT,
     IN p_cod VARCHAR(255),
@@ -117,13 +126,13 @@ END $$
 DELIMITER ;
 
 
-
+-- Inserta un usuario.
 INSERT INTO `user` (`id`, `username`, `password`, `fullname`) VALUES
 (1, 'user', 0x98fb67ca8f459f49841208bd4261bceb, 'user user');
 
 
 
-
+-- Inserta múltiples registros en la tabla de riesgos.
 INSERT INTO risks (cod, impact, title, description, resolved) 
 VALUES 
 ('RISK001', 'High', 'Risk 1', 'Description of risk 1', 1),

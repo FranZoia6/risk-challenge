@@ -1,120 +1,104 @@
-2025-03-07 02:25:59 | INFO | Received data: 
-2025-03-07 02:27:41 | INFO | Received data: {'title': 'RISK001', 'description': 'RISK001', 'cod': 'RISK001', 'impact': '', 'resolved': False}
-2025-03-07 02:27:41 | ERROR | (1062, "Duplicate entry 'RISK001' for key 'risks.cod'")
-2025-03-07 02:27:41 | ERROR | Traceback (most recent call last):
-  File "/app/src/services/RiskService.py", line 100, in add_risk
-    cursor.callproc(
-  File "/usr/local/lib/python3.10/site-packages/pymysql/cursors.py", line 269, in callproc
-    self._query(q)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/cursors.py", line 322, in _query
-    conn.query(q)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 563, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 825, in _read_query_result
-    result.read()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 1199, in read
-    first_packet = self.connection._read_packet()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 775, in _read_packet
-    packet.raise_for_error()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.IntegrityError: (1062, "Duplicate entry 'RISK001' for key 'risks.cod'")
+2025-03-07 15:06:46 | ERROR | 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+2025-03-07 15:06:46 | ERROR | Traceback (most recent call last):
+  File "/app/src/database/db_mysql.py", line 9, in get_connection
+    return pymysql.connect(
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 669, in connect
+    self._request_authentication()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 267, in caching_sha2_password_auth
+    data = sha2_rsa_encrypt(conn.password, conn.salt, conn.server_public_key)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 144, in sha2_rsa_encrypt
+    raise RuntimeError(
+RuntimeError: 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
 
-2025-03-07 02:27:41 | ERROR | not enough values to unpack (expected 2, got 0)
-2025-03-07 02:27:41 | ERROR | Traceback (most recent call last):
-  File "/app/src/routes/RiskRoutes.py", line 91, in add_risks
-    success, message = RiskService.add_risk(risk_data)
-ValueError: not enough values to unpack (expected 2, got 0)
-
-2025-03-07 02:27:59 | INFO | Received data: {'title': 'RISK001', 'description': 'RISK001', 'cod': 'RISK0101', 'impact': '', 'resolved': False}
-2025-03-07 12:04:21 | INFO | Received data: {'title': 'sdadsad', 'description': 'asdsdasd', 'cod': 'RISK123', 'impact': '', 'resolved': True}
-2025-03-07 12:07:36 | INFO | Received data: {'title': 'sdadsad', 'description': 'asdsdasd', 'cod': 'RISK123', 'impact': '', 'resolved': True}
-2025-03-07 12:07:36 | ERROR | (1062, "Duplicate entry 'RISK123' for key 'risks.cod'")
-2025-03-07 12:07:36 | ERROR | Traceback (most recent call last):
-  File "/app/src/services/RiskService.py", line 99, in add_risk
-    cursor.callproc(
-  File "/usr/local/lib/python3.10/site-packages/pymysql/cursors.py", line 269, in callproc
-    self._query(q)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/cursors.py", line 322, in _query
-    conn.query(q)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 563, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 825, in _read_query_result
-    result.read()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 1199, in read
-    first_packet = self.connection._read_packet()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 775, in _read_packet
-    packet.raise_for_error()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.IntegrityError: (1062, "Duplicate entry 'RISK123' for key 'risks.cod'")
-
-2025-03-07 12:07:57 | INFO | Received data: {'title': 'sdadsad', 'description': 'asdsdasd', 'cod': 'RISK124', 'impact': '', 'resolved': True}
-2025-03-07 12:09:12 | INFO | Received data: {'title': 'sdadsad', 'description': 'asdsdasd', 'cod': 'RISK125', 'impact': '', 'resolved': True}
-2025-03-07 12:09:23 | INFO | Received data: {'title': 'sdadsad', 'description': 'asdsdasd', 'cod': 'RISK126', 'impact': '', 'resolved': True}
-2025-03-07 12:10:01 | INFO | Received data: {'title': 'Franco', 'description': 'sdadsad', 'cod': 'RISK127', 'impact': 'High', 'resolved': False}
-2025-03-07 13:05:10 | ERROR | All fields (username, password, fullname) are required.
-2025-03-07 13:05:10 | ERROR | Traceback (most recent call last):
-  File "/app/src/services/AuthService.py", line 27, in add_user
-    raise CustomException("All fields (username, password, fullname) are required.")
-src.utils.errors.CustomException.CustomException: All fields (username, password, fullname) are required.
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/app/src/routes/AuthRoutes.py", line 47, in logUp
-    response = AuthService.add_user(_user)
-  File "/app/src/services/AuthService.py", line 38, in add_user
-    raise CustomException(ex)
-src.utils.errors.CustomException.CustomException: All fields (username, password, fullname) are required.
-
-2025-03-07 13:05:20 | ERROR | An error occurred: (1062, "Duplicate entry 'Fran' for key 'user.username'")
-2025-03-07 13:05:20 | ERROR | Traceback (most recent call last):
+2025-03-07 15:06:46 | ERROR | An error occurred: 'NoneType' object has no attribute 'cursor'
+2025-03-07 15:06:46 | ERROR | Traceback (most recent call last):
   File "/app/src/services/AuthService.py", line 32, in add_user
-    cursor.execute('call sp_addUser(%s, %s, %s)', (user.username, user.password, user.fullname))
-  File "/usr/local/lib/python3.10/site-packages/pymysql/cursors.py", line 153, in execute
-    result = self._query(query)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/cursors.py", line 322, in _query
-    conn.query(q)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 563, in query
-    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 825, in _read_query_result
-    result.read()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 1199, in read
-    first_packet = self.connection._read_packet()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 775, in _read_packet
-    packet.raise_for_error()
-  File "/usr/local/lib/python3.10/site-packages/pymysql/protocol.py", line 219, in raise_for_error
-    err.raise_mysql_exception(self._data)
-  File "/usr/local/lib/python3.10/site-packages/pymysql/err.py", line 150, in raise_mysql_exception
-    raise errorclass(errno, errval)
-pymysql.err.IntegrityError: (1062, "Duplicate entry 'Fran' for key 'user.username'")
+    with connection.cursor() as cursor:
+AttributeError: 'NoneType' object has no attribute 'cursor'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "/app/src/routes/AuthRoutes.py", line 47, in logUp
+  File "/app/src/routes/AuthRoutes.py", line 44, in logUp
     response = AuthService.add_user(_user)
-  File "/app/src/services/AuthService.py", line 40, in add_user
+  File "/app/src/services/AuthService.py", line 41, in add_user
     raise CustomException(f"An error occurred: {str(ex)}")
-src.utils.errors.CustomException.CustomException: An error occurred: (1062, "Duplicate entry 'Fran' for key 'user.username'")
+src.utils.errors.CustomException.CustomException: An error occurred: 'NoneType' object has no attribute 'cursor'
 
-2025-03-07 13:05:25 | ERROR | All fields (username, password, fullname) are required.
-2025-03-07 13:05:25 | ERROR | Traceback (most recent call last):
-  File "/app/src/services/AuthService.py", line 27, in add_user
-    raise CustomException("All fields (username, password, fullname) are required.")
-src.utils.errors.CustomException.CustomException: All fields (username, password, fullname) are required.
+2025-03-07 15:11:47 | ERROR | 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+2025-03-07 15:11:47 | ERROR | Traceback (most recent call last):
+  File "/app/src/database/db_mysql.py", line 9, in get_connection
+    return pymysql.connect(
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 669, in connect
+    self._request_authentication()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 267, in caching_sha2_password_auth
+    data = sha2_rsa_encrypt(conn.password, conn.salt, conn.server_public_key)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 144, in sha2_rsa_encrypt
+    raise RuntimeError(
+RuntimeError: 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
 
-During handling of the above exception, another exception occurred:
+2025-03-07 15:11:47 | ERROR | 'NoneType' object has no attribute 'cursor'
+2025-03-07 15:11:47 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 21, in login
+    authenticated_user = AuthService.login_user(_user)
+  File "/app/src/services/AuthService.py", line 13, in login_user
+    with connection.cursor() as cursor:
+AttributeError: 'NoneType' object has no attribute 'cursor'
 
-Traceback (most recent call last):
-  File "/app/src/routes/AuthRoutes.py", line 47, in logUp
-    response = AuthService.add_user(_user)
-  File "/app/src/services/AuthService.py", line 38, in add_user
-    raise CustomException(ex)
-src.utils.errors.CustomException.CustomException: All fields (username, password, fullname) are required.
+2025-03-07 15:14:28 | ERROR | 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+2025-03-07 15:14:28 | ERROR | Traceback (most recent call last):
+  File "/app/src/database/db_mysql.py", line 9, in get_connection
+    return pymysql.connect(
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 669, in connect
+    self._request_authentication()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 267, in caching_sha2_password_auth
+    data = sha2_rsa_encrypt(conn.password, conn.salt, conn.server_public_key)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 144, in sha2_rsa_encrypt
+    raise RuntimeError(
+RuntimeError: 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
 
+2025-03-07 15:14:28 | ERROR | 'NoneType' object has no attribute 'cursor'
+2025-03-07 15:14:28 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 21, in login
+    authenticated_user = AuthService.login_user(_user)
+  File "/app/src/services/AuthService.py", line 13, in login_user
+    with connection.cursor() as cursor:
+AttributeError: 'NoneType' object has no attribute 'cursor'
+
+2025-03-07 15:14:30 | ERROR | 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+2025-03-07 15:14:30 | ERROR | Traceback (most recent call last):
+  File "/app/src/database/db_mysql.py", line 9, in get_connection
+    return pymysql.connect(
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 361, in __init__
+    self.connect()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 669, in connect
+    self._request_authentication()
+  File "/usr/local/lib/python3.10/site-packages/pymysql/connections.py", line 979, in _request_authentication
+    auth_packet = _auth.caching_sha2_password_auth(self, auth_packet)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 267, in caching_sha2_password_auth
+    data = sha2_rsa_encrypt(conn.password, conn.salt, conn.server_public_key)
+  File "/usr/local/lib/python3.10/site-packages/pymysql/_auth.py", line 144, in sha2_rsa_encrypt
+    raise RuntimeError(
+RuntimeError: 'cryptography' package is required for sha256_password or caching_sha2_password auth methods
+
+2025-03-07 15:14:30 | ERROR | 'NoneType' object has no attribute 'cursor'
+2025-03-07 15:14:30 | ERROR | Traceback (most recent call last):
+  File "/app/src/routes/AuthRoutes.py", line 21, in login
+    authenticated_user = AuthService.login_user(_user)
+  File "/app/src/services/AuthService.py", line 13, in login_user
+    with connection.cursor() as cursor:
+AttributeError: 'NoneType' object has no attribute 'cursor'
+
+2025-03-07 15:17:03 | INFO | Received data: {'title': 'sadasd', 'description': 'adasds', 'cod': 'asdas', 'impact': 'High', 'resolved': False}

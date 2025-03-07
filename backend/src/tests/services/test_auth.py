@@ -5,18 +5,14 @@ from src.models.UserModel import User
 
 class TestAuthService(unittest.TestCase):
 
-    @patch('src.services.AuthService.get_connection')  # Mockeamos la conexión
+    @patch('src.services.AuthService.get_connection')  
     def test_login_user_success(self, mock_get_connection):
-        # Mockeamos la conexión y el cursor
         mock_connection = MagicMock()
         mock_get_connection.return_value = mock_connection
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
-        
-        # Simulamos el resultado de la ejecución de la consulta
         mock_cursor.fetchone.return_value = (1, 'username', 'password')
 
-        # Llamamos al método que estamos probando
         user = MagicMock()
         user.username = 'username'
         user.password = 'password'
@@ -33,18 +29,14 @@ class TestAuthService(unittest.TestCase):
         self.assertEqual(result.id, 1)
         self.assertEqual(result.username, 'username')
 
-    @patch('src.services.AuthService.get_connection')  # Mockeamos la conexión
+    @patch('src.services.AuthService.get_connection')  
     def test_add_user_success(self, mock_get_connection):
-        # Mockeamos la conexión y el cursor
         mock_connection = MagicMock()
         mock_get_connection.return_value = mock_connection
         mock_cursor = MagicMock()
         mock_connection.cursor.return_value.__enter__.return_value = mock_cursor
+        mock_cursor.execute.return_value = None  
 
-        # Simulamos la ejecución de la consulta
-        mock_cursor.execute.return_value = None  # No se necesita valor de retorno
-
-        # Llamamos al método que estamos probando
         user = MagicMock()
         user.username = 'new_user'
         user.password = 'password'

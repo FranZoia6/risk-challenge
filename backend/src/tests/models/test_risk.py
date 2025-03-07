@@ -5,7 +5,7 @@ class TestRiskModel(unittest.TestCase):
 
     def test_risk_initialization(self):
         # Creamos una instancia de la clase Risk
-        risk = Risk(1, 'R1', 'High', 'Risk 1', 'Description of risk 1', 'No', '2025-03-06')
+        risk = Risk(1, 'R1', 'High', 'Risk 1', 'Description of risk 1', 'No')
 
         # Verificamos que los atributos se hayan asignado correctamente
         self.assertEqual(risk.id, 1)
@@ -14,11 +14,10 @@ class TestRiskModel(unittest.TestCase):
         self.assertEqual(risk.title, 'Risk 1')
         self.assertEqual(risk.description, 'Description of risk 1')
         self.assertEqual(risk.resolved, 'No')
-        self.assertEqual(risk.date, '2025-03-06')
 
     def test_to_json(self):
         # Creamos una instancia de la clase Risk
-        risk = Risk(1, 'R1', 'High', 'Risk 1', 'Description of risk 1', 'No', '2025-03-06')
+        risk = Risk(1, 'R1', 'High', 'Risk 1', 'Description of risk 1', 'No')
 
         # Llamamos al método `to_json` y verificamos el diccionario resultante
         expected_result = {
